@@ -6,13 +6,31 @@ const Register = ({openLogin}) => {
     const [password, setPassword] = useState('');
     const [file, setFile] = useState(null)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         // eslint-disable-next-line no-restricted-globals
         e.preventDefault();
-        axios.post('http://localhost:8431/chat/user/register', {
-        username,
-        password
-        })
+        const formData = new FormData();
+        formData.append('username', username)
+        formData.append('password', password)
+        if (file) {
+        formData.append('image', file);  // Check that the file is properly attached
+        } else {
+            console.error("File is undefined");
+            return;  // Early exit if no file is uploaded
+        }
+        try {
+            const response = await axios.post('http://localhost:8431/chat/user/register', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'  // Ensure correct content type for file upload
+                }
+            });
+        console.log(response);
+        if (response.data.msg === 'success') {
+            openLogin();
+        }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
   return (
