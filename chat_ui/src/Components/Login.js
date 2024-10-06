@@ -12,8 +12,11 @@ const Login = ({openSignUp}) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:9000/chat/user/login', {username, password});
-        console.log(response);
-        if (response.data.msg === 'success') {
+            console.log(response);
+            if (response.data.msg === 'success') {
+                window.localStorage.setItem('chat-token', response.data.token);
+                window.localStorage.setItem('userId', response.data.token);
+                window.localStorage.setItem('chat-token', response.data.user._id);
             navigate('/chat');
         }
         } catch (error) {
