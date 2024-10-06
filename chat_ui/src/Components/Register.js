@@ -19,7 +19,7 @@ const Register = ({openLogin}) => {
             return;  // Early exit if no file is uploaded
         }
         try {
-            const response = await axios.post('http://localhost:8431/chat/user/register', formData, {
+            const response = await axios.post('http://localhost:9000/chat/user/register', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'  // Ensure correct content type for file upload
                 }
