@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+
 
 const Register = ({openLogin}) => {
     const [username, setUsername] = useState('');
@@ -8,6 +10,7 @@ const Register = ({openLogin}) => {
     const handleSubmit = () => {
         // eslint-disable-next-line no-restricted-globals
         // event.preventDefault();
+        axios.post('http://localhost:5000/chat/user/register',{username,password})
     }
 
   return (
