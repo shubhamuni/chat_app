@@ -1,7 +1,10 @@
 import express from 'express'
-import Register, { upload } from '../controllers/Register.controller.js';
+import { register, upload, login } from '../controllers/register.controller.js';
+
+
 const router = express.Router();
 
-router.post('/register', upload.single('image'), Register);
+router.post('/register', upload.single('image'), register);
+router.post('/login', login);
 
 export default router;

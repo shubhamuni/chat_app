@@ -1,12 +1,24 @@
+import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({openSignUp}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
         // eslint-disable-next-line no-restricted-globals
-        // event.preventDefault();
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:9000/chat/user/login', {username, password});
+        console.log(response);
+        if (response.data.msg === 'success') {
+            navigate('/chat');
+        }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
   return (
