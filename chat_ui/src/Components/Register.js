@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-
+import axios from 'axios';
 
 const Register = ({openLogin}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [file, setFile] = useState(null)
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         // eslint-disable-next-line no-restricted-globals
-        // event.preventDefault();
-        axios.post('http://localhost:5000/chat/user/register',{username,password})
+        e.preventDefault();
+        axios.post('http://localhost:8431/chat/user/register', {
+        username,
+        password
+        })
     }
 
   return (
