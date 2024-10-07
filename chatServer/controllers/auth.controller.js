@@ -49,7 +49,7 @@ async function register(req, res) {
 async function login(req, res) {
      try {
         const { username, password } = req.body;
-        const userExist = await UserModel.findOne({username})
+         const userExist = await UserModel.findOne({ username });
         if (!userExist) {
             return res.status(400).json({ msg: "User is not existed" })
          }

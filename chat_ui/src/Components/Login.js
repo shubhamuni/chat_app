@@ -15,8 +15,8 @@ const Login = ({openSignUp}) => {
             console.log(response);
             if (response.data.msg === 'success') {
                 window.localStorage.setItem('chat-token', response.data.token);
-                window.localStorage.setItem('userId', response.data.token);
-                window.localStorage.setItem('chat-token', response.data.user._id);
+                window.localStorage.setItem('userId', response.data.user._id);
+                // window.localStorage.setItem('chat-token', response.data.user._id);
             navigate('/chat');
         }
         } catch (error) {
