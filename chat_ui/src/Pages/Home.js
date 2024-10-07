@@ -21,22 +21,24 @@ const Home = () => {
     }
     useEffect(() => {
       const verifyUser = async () => {
+        const token = window.localStorage.getItem('chat-token');
           try {
-              const response = await axios.get('http://localhost/chat/user/verify',
-                  {headers: {
-                    'Authorization' : `Bearer ${window.localStorage.getItem('chat-token')}`
-                }})  
+            const response = await axios.get('http://localhost:9000/chat/user/verify', {
+              headers: {
+                    'Authorization': `Bearer ${token}`
+              }
+            })
+            console.log('Response:', response.data);
             if (response.data.msg === 'success') {
               navigate('/chat')
-            } else {
-              navigate('/')
-            }
+            }             
           } catch (error) {
+            console.log(error);
             
-          }
+          }        
       }
         verifyUser();
-    },[navigate])
+    },[])
   return (
       <div className='flex items-center justify-center h-screen bg-gray-100'>
           <div className='bg-cover w-2/4 h-[calc(100vh-60px)] rounded-lg flex items-center justify-center' style={{ backgroundImage: "url(./bg.jpg)" }}>

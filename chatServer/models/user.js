@@ -6,6 +6,6 @@ const userSchema = new mongoose.Schema({
     image: {type: String}
 })
 
-const userModel = mongoose.model('user', userSchema);
+const UserModel = mongoose.model('user', userSchema);
 
-export default userModel;
+export default UserModel;

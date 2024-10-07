@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/chat/user', AuthRouter)
-app.listen(process.env.PORT || 5001, () => {
+app.listen(9000, () => {
     Connect();
     console.log("server is running");
 })
