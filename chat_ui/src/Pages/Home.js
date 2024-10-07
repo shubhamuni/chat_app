@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Model from '../Components/Model';
 import Register from '../Components/Register';
 import Login from '../Components/Login';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Home = () => {
     const [modelIsOpen, setModelIsOpen] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
+    const navigate = useNavigate();
 
     const openSignUp = () => {
         setModelIsOpen(true);
@@ -15,6 +19,24 @@ const Home = () => {
         setModelIsOpen(true);
         setIsLogin(true);
     }
+    useEffect(() => {
+      const verifyUser = async () => {
+          try {
+              const response = await axios.get('http://localhost/chat/user/verify',
+                  {headers: {
+                    'Authorization' : `Bearer ${window.localStorage.getItem('chat-token')}`
+                }})  
+            if (response.data.msg === 'success') {
+              navigate('/chat')
+            } else {
+              navigate('/')
+            }
+          } catch (error) {
+            
+          }
+      }
+        verifyUser();
+    },[navigate])
   return (
       <div className='flex items-center justify-center h-screen bg-gray-100'>
           <div className='bg-cover w-2/4 h-[calc(100vh-60px)] rounded-lg flex items-center justify-center' style={{ backgroundImage: "url(./bg.jpg)" }}>

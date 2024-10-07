@@ -71,7 +71,7 @@ async function login(req, res) {
 }
 
 const verify = (req, res) => {
-
+    return res.status(200).json({msg: 'success'})
 }
 
 export  {register, login, verify};
