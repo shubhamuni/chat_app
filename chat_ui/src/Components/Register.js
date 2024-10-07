@@ -24,8 +24,10 @@ const Register = ({openLogin}) => {
                     'Content-Type': 'multipart/form-data'  // Ensure correct content type for file upload
                 }
             });
-        console.log(response);
-        if (response.data.msg === 'success') {
+        if (response.data.msg === 'Failed') {
+            alert('User already existed')
+        }
+        else if (response.data.msg === 'success') {
             openLogin();
         }
         } catch (error) {

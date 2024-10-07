@@ -26,7 +26,7 @@ async function register(req, res) {
 
         const userExist = await UserModel.findOne({username})
         if (userExist) {
-            return res.status(400).json({ msg: "User already existed" })
+            return res.status(400).json({ msg: "Failed" })
         }
 
         const hashPassword = await bcrypt.hash(password, 10)
