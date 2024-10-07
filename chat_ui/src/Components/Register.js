@@ -31,7 +31,7 @@ const Register = ({openLogin}) => {
             openLogin();
         }
         } catch (error) {
-            console.log(error)
+            alert(error.response.data.msg)
         }
     }
 
