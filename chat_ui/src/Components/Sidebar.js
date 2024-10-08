@@ -1,19 +1,22 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState([]);
     useEffect(() => {
         const fetchUser = async () => {
           try {
-              const users = axios.get('http://localhost:9000/chat/user/users')
-              
+              const users = await axios.get('http://localhost:9000/chat/user/users')
+              setUser(users.data)
           } catch (error) {
-            navigate('/')
+              navigate('/');
+              console.log(error);
+              
           }
-      }
-    
+        }
+        fetchUser();
       
     }, [])
     
