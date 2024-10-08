@@ -23,9 +23,7 @@ const Sidebar = () => {
               
           }
         }
-        fetchUser();
-        console.log(users[0].image);
-        
+        fetchUser();        
     }, [])
     
   return (
@@ -35,7 +33,7 @@ const Sidebar = () => {
               (<div className='space-y-4' >
                   {users.map(user => (
                       <div key={user._id} className='flex items-center space-x-4 p2 hover:bg-gray-300 cursor-pointer '>
-                          <img src={`../../../chatServer/Public/Images/${user.image}`} alt="username" className='w-10 h-10 rounded-full border'/>
+                          <img src={`./../../../chatServer/Public/Images/${user.image}`} alt="username" className='w-10 h-10 rounded-full border'/>
                           <span className='text-white font-bold'>{user.username}</span>
                       </div>
                   ))}
