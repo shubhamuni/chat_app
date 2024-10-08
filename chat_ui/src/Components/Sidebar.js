@@ -9,7 +9,7 @@ const Sidebar = () => {
         const fetchUser = async () => {
           try {
               const users = await axios.get('http://localhost:9000/chat/user/users')
-              setUser(users.data)
+              setUser(users.data.users)
           } catch (error) {
               navigate('/');
               console.log(error);
@@ -23,6 +23,19 @@ const Sidebar = () => {
   return (
       <div>
           <input type="text" name="Search" placeholder='Search' />
+          {user.length > 0 ? 
+              <div>
+                  {user.map(user => (
+                      <div>
+                          <img src="" alt="" />
+                          <span>{user.username}</span>
+                      </div>
+                  ))}
+              </div> :
+              <div>
+                  
+              </div>
+          }
     </div>
   )
 }
