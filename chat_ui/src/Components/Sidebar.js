@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Sidebar = () => {
+const Sidebar = ({setChatInitiated, setChat}) => {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -26,13 +26,16 @@ const Sidebar = () => {
         fetchUser();        
     }, [])
     
+  const statChat = () => {
+    setChatInitiated(true)
+  }
   return (
       <div className='w-1/4 bg-black p-4 bg-opacity-70 realative'>
           <input type="text" name="Search" placeholder='Search' className='w-full mb-4 p-2 border rounded'/>
           {users.length > 0 ? 
               (<div className='space-y-4' >
                   {users.map(user => (
-                      <div key={user._id} className='flex items-center space-x-4 p2 hover:bg-gray-300 cursor-pointer '>
+                      <div key={user._id} onClick={()=> statChat(user._id)} className='flex items-center space-x-4 p2 hover:bg-gray-300 cursor-pointer '>
                           <img src={`./../../../chatServer/Public/Images/${user.image}`} alt="username" className='w-10 h-10 rounded-full border'/>
                           <span className='text-white font-bold'>{user.username}</span>
                       </div>
