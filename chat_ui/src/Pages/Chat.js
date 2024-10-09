@@ -3,7 +3,7 @@ import Sidebar from "../Components/Sidebar";
 
 const Chat = () => {
   const [chatInitiated, setChatInitiated] = useState(false);
-  const [chats, setChats] = useState([])
+  const [chat, setChat] = useState([])
   
   return (
     <div className='flex items-center justify-center h-screen bg-gray-100'>
