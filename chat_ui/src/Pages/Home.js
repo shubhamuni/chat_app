@@ -8,6 +8,7 @@ import Error404 from './Error404';
 
 
 const Home = () => {
+  const [error, setError] = useState(null); 
     const [modelIsOpen, setModelIsOpen] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const navigate = useNavigate();
@@ -23,11 +24,10 @@ const Home = () => {
     useEffect(() => {
       const verifyUser = async () => {
         const token = window.localStorage.getItem('chat-token');
-        const dummy = "anything here"
           try {
-            const response = await axios.get('http://localhost:9000/chat/user/verify', {
+            const response = await axios.get('http://localhost:9000/chat/user/verif', {
               headers: {
-                    'Authorization': `Bearer ${dummy}`
+                    'Authorization': `Bearer ${token}`
               }
             })
             window.localStorage.setItem('status', response.status);
@@ -37,12 +37,16 @@ const Home = () => {
             }             
           } catch (error) {
             console.log(error);
+            setError(error);
           }        
       }
         verifyUser();
     }, [])
   return (
-      <div className='flex items-center justify-center h-screen bg-gray-100'>
+    <>
+      {
+        error ? <Error404 /> :
+          <div className='flex items-center justify-center h-screen bg-gray-100'>
         <div className='bg-cover w-2/4 h-[calc(100vh-60px)] rounded-lg flex items-center justify-center' style={{ backgroundImage: "url(./bg.jpg)" }}>
             <div className='text-center'>
                 <h2 className='text-6xl py-3 bg-white bg-opacity-70 font-bold text-gray-700 rounded-lg'>Welcome</h2>
@@ -53,6 +57,8 @@ const Home = () => {
             {isLogin ? <Login openSignUp={openSignUp} /> : <Register openLogin={openLogin}/>}
         </Model>
     </div>
+      }
+      </>
   )
 }
 export default Home;
