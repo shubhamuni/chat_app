@@ -45,7 +45,7 @@ const Sidebar = ({setChatInitiated, setChat}) => {
                 <p className='text-white text-2xl'>No Users</p>  
               </div>)
           }
-          <button className='bottom-1 right-1 left-1 rounded hover:bg-blue-700 bg-blue-500 text-white p-2'>Logout</button>
+          <button className='fixed bottom-9 right-30 left-100 rounded hover:bg-blue-700 bg-blue-500 text-white p-3 justify-center'>Logout</button>
     </div>
   )
 }
