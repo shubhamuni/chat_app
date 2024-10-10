@@ -25,7 +25,7 @@ const Home = () => {
       const verifyUser = async () => {
         const token = window.localStorage.getItem('chat-token');
           try {
-            const response = await axios.get('http://localhost:9000/chat/user/verif', {
+            const response = await axios.get('http://localhost:9000/chat/user/verify', {
               headers: {
                     'Authorization': `Bearer ${token}`
               }
