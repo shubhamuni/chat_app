@@ -34,7 +34,7 @@ const Home = () => {
             }             
           } catch (error) {
             console.log(error);
-            
+            <Error404/>
           }        
       }
         verifyUser();
