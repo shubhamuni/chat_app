@@ -1,7 +1,7 @@
 import express from 'express';
-import verifyUser from './../middleware/verifyUser';
-import Conversation from './../models/Conversation';
-import Message from './../models/Message';
+import verifyUser from './../middleware/verifyUser.js';
+import Conversation from './../models/Conversation.js';
+import Message from './../models/Message.js';
 
 const router = express.Router();
 
