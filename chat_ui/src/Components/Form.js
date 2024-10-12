@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 const Form = ({receiverId, setChat, chat}) => {
     const [message, setMessage] = useState('');
     const userId = window.localStorage.getItem('userId')
-    const sendMessage = async () => {
+    const sendMessage = async (e) => {
+        e.preventDefault();
         const token = window.localStorage.getItem('chat-token');
         try {
             const response = await axios.post('http://localhost:9000/chat/message/send/' + receiverId, { content: message },

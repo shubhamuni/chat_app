@@ -6,6 +6,7 @@ const Chat = ({socket}) => {
   const [chatInitiated, setChatInitiated] = useState(false);
   const [chat, setChat] = useState([]);
   const [receiverId, setReceiverId] = useState();
+  const userId = window.localStorage.getItem("userId")
   
   return (
     <div className='flex items-center justify-center h-screen bg-gray-100'>
@@ -15,7 +16,17 @@ const Chat = ({socket}) => {
         <Sidebar setChatInitiated={setChatInitiated} setChat={setChat} socket={socket} setReceiverId={setReceiverId}/>
         <div className="w-3/4 bg-white flex flex-col bg-opacity-20 realative">
           {chatInitiated ? <div>
-            <p>Chat Initiated</p>
+            <div className="overflow-y-auto mb-20">
+              {chat && chat.map((chat, index) => (
+                <div key={index} className={`flex px-4 ${chat.sender === userId ? "justify-end" : "justify-start"}`}
+                >
+                  <div className={`p-2 my-2 rounded ${chat.sender === userId ? "bg-blue-500" : "bg-white"}`}>
+                  {chat.content}
+                  </div>
+                </div>
+              ))}
+              
+          </div>
             <Form receiverId={receiverId} setChat={setChat} chat={chat} />
           </div> : <div className="flex justify-center items-center h-full">
             <h2 className='text-3xl py-3 bg-white bg-opacity-70 font-bold text-gray-700 rounded-lg'>-----Welcome-----</h2>

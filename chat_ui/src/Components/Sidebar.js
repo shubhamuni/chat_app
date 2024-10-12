@@ -26,10 +26,26 @@ const Sidebar = ({setChatInitiated, setChat, socket, setReceiverId}) => {
         fetchUser();        
     }, [])
     
-  const statChat = (id) => {
-    socket.emit('join', id)
-    setReceiverId(id)
-    setChatInitiated(true);
+  const statChat = async (id) => {
+    const token = window.localStorage.getItem('chat-token');
+      try {
+          const response = await axios.get('http://localhost:9000/chat/message/read/' + id,
+              {
+            headers: {
+                  'Authorization': `Bearer ${token}`
+                  }
+              })
+          console.log(response);
+          
+          setChat(response.data)
+      } catch (error) {
+        if (error.response.data.message === "Not Found") {
+          setChat([]);
+        }
+      }
+  socket.emit('join', id)
+  setReceiverId(id)
+  setChatInitiated(true);
   }
   return (
       <div className='w-1/4 bg-black p-4 bg-opacity-70 realative'>

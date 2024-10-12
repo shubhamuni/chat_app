@@ -4,31 +4,56 @@ import Conversation from './../models/Conversation.js';
 import Message from './../models/Message.js';
 
 const router = express.Router();
-
-router.post('/send/:receiverId',verifyUser, async (req,res) => {
-    const { receiverId } = req.params;
-    const  senderId  = req.user._id;
-    const { content } = req.body;
-
-    let conversation = await Conversation.findOne({
-        participants: {$all: [senderId, receiverId]}
+    router.get('/read/:receiverId', verifyUser, async(req, res) => {
+    try {
+        const { receiverId } = req.params;
+        const senderId = req.user._id; 
+        const conversation = await Conversation.findOne({
+            participants: { $all: [senderId, receiverId] }
+        });
+        if (!conversation) {
+            return res.status(404).json({message: "Not Found"})
+        }
+        const messages = await Message.find({
+            conversationId: conversation._id
+        }).sort({ createdAt: 1 })
+        
+        return res.status(200).json(messages)
+    } catch (error) {
+        return res.status(500).json({msg: error})
+        }
     })
-    if (!conversation) {
-        conversation = new Conversation({
-            participants:[senderId, receiverId]
+
+try {
+    router.post('/send/:receiverId', verifyUser, async (req, res) => {
+        const { receiverId } = req.params;
+        const senderId = req.user._id;
+        const { content } = req.body;
+
+        let conversation = await Conversation.findOne({
+            participants: { $all: [senderId, receiverId] }
         })
-        await conversation.save();
-    }
-    const newMessage = new Message({
-        conversationId: conversation._id,
-        sender: senderId,
-        content: content,
-        createdAt: new Date()
+        if (!conversation) {
+            conversation = new Conversation({
+                participants: [senderId, receiverId]
+            })
+            await conversation.save();
+        }
+        const newMessage = new Message({
+            conversationId: conversation._id,
+            sender: senderId,
+            content: content,
+            createdAt: new Date()
 
+        })
+        await newMessage.save();
+        return res.json(newMessage);
     })
-    await Message.save();
-    return res.json(newMessage)
-})
+} catch (error) {
+    console.log(error);
+    res.status(500).json(error)
+    
+}
 
 
 
