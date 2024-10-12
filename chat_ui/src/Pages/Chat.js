@@ -16,7 +16,7 @@ const Chat = ({socket}) => {
         <div className="w-3/4 bg-white flex flex-col bg-opacity-20 realative">
           {chatInitiated ? <div>
             <p>Chat Initiated</p>
-            <Form setReceiverId={setReceiverId} />
+            <Form receiverId={receiverId} setChat={setChat} chat={chat} />
           </div> : <div className="flex justify-center items-center h-full">
             <h2 className='text-3xl py-3 bg-white bg-opacity-70 font-bold text-gray-700 rounded-lg'>-----Welcome-----</h2>
           </div> }

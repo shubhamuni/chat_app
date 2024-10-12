@@ -27,8 +27,9 @@ const Sidebar = ({setChatInitiated, setChat, socket, setReceiverId}) => {
     }, [])
     
   const statChat = (id) => {
+    socket.emit('join', id)
+    setReceiverId(id)
     setChatInitiated(true);
-    socket.emit('join',id)
   }
   return (
       <div className='w-1/4 bg-black p-4 bg-opacity-70 realative'>

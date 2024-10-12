@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 
-const Form = () => {
+const Form = ({receiverId, setChat, chat}) => {
     const [message, setMessage] = useState('');
     const userId = window.localStorage.getItem('userId')
     const sendMessage = async  () => {
         try {
-            const response = await axios.post('http://localhost:9000/chat/message/send/')
+            const response = await axios.post('http://localhost:9000/chat/message/send/' + receiverId,{content: message})
+            setChat([...chat, {content: message, sender: userId}])
         } catch (error) {
            console.log(error);
             
