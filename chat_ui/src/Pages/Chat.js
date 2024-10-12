@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "../Components/Sidebar";
 import Form from "../Components/Form";
 
-const Chat = () => {
+const Chat = ({socket}) => {
   const [chatInitiated, setChatInitiated] = useState(false);
   const [chat, setChat] = useState([])
   
@@ -11,7 +11,7 @@ const Chat = () => {
       <div
         className='bg-cover w-2/4 h-[calc(100vh-60px)] rounded-lg flex' style={{ backgroundImage: "url(./bg.jpg)" }}>
 
-        <Sidebar setChatInitiated={setChatInitiated} setChat={setChat} />
+        <Sidebar setChatInitiated={setChatInitiated} setChat={setChat} socket={socket}/>
         <div className="w-3/4 bg-white flex flex-col bg-opacity-20 realative">
           {chatInitiated ? <div>
             <p>Chat Initiated</p>

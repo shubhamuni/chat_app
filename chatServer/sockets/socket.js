@@ -2,9 +2,11 @@ import { Server } from 'socket.io';
 import http from 'http';
 import express from 'express';
 
-const app = express();
+const appl = express();
 
-const server = http.createServer(app);
+const onlineUsers = {};
+
+const server = http.createServer(appl);
 
 
 const io = new Server(server, {
@@ -17,5 +19,11 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     console.log("user joined", socket.id);
-    
+    socket.on('join', (receiverId) => {
+        onlineUsers[receiverId] = socket.id
+        console.log("Receiver ID: ", receiverId, " Socket id: ", socket.id);
+        
+    })
 })
+
+export { appl, server };
