@@ -4,9 +4,16 @@ import React, { useState } from 'react'
 const Form = ({receiverId, setChat, chat}) => {
     const [message, setMessage] = useState('');
     const userId = window.localStorage.getItem('userId')
-    const sendMessage = async  () => {
+    const sendMessage = async () => {
+        const token = window.localStorage.getItem('chat-token');
         try {
-            const response = await axios.post('http://localhost:9000/chat/message/send/' + receiverId,{content: message})
+            const response = await axios.post('http://localhost:9000/chat/message/send/' + receiverId, { content: message },
+                {
+              headers: {
+                    'Authorization': `Bearer ${token}`
+              }
+            }
+            )
             setChat([...chat, {content: message, sender: userId}])
         } catch (error) {
            console.log(error);
