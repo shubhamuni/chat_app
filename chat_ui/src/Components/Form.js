@@ -11,9 +11,10 @@ const Form = ({receiverId, setChat, chat}) => {
                 {
               headers: {
                     'Authorization': `Bearer ${token}`
-              }
-            }
-            )
+                    }
+                })
+            console.log(response);
+            
             setChat([...chat, {content: message, sender: userId}])
         } catch (error) {
            console.log(error);
@@ -21,8 +22,8 @@ const Form = ({receiverId, setChat, chat}) => {
         }
     }
   return (
-      <div className="p-4 fixed bottom-5 right-0 left-24 flex justify-center">
-          <form onSubmit={sendMessage}>
+      <div className="p-4 fixed bottom-5 right-0 left-24 ">
+          <form onSubmit={sendMessage} className='flex justify-center'>
               <div className="flex items-center w-full max-w-md">
                 {/* Input Field */}
                 <input 

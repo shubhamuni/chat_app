@@ -17,7 +17,17 @@ router.post('/send/:receiverId', async (req,res) => {
         conversation = new Conversation({
             participants:[senderId, receiverId]
         })
+        await conversation.save();
     }
+    const newMessage = new Message({
+        conversationId: conversation._id,
+        sender: senderId,
+        content: content,
+        createdAt: new Date()
+
+    })
+    await Message.save();
+    return res.json(newMessage)
 })
 
 
