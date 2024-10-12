@@ -22,7 +22,7 @@ const Form = () => {
                     value={message} 
                     onChange={(e) => setMessage(e.target.value)} 
                     placeholder="Type your message..." 
-                    className="flex-grow w-full p-3 border border-gray-300 rounded-l-lg focus:outline-none"
+                    className="flex-grow w-50 p-3 border border-gray-300 rounded-l-lg focus:outline-none"
                 />
                 
                 {/* Send Button */}
