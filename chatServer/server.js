@@ -13,6 +13,7 @@ app.use(express.json());
 app.use('/chat/user', AuthRouter)
 app.use('/chat/users', UserRouter)
 app.use('/chat/message', MessageRouter)
+
 server.listen(9000, () => {
     Connect();
     console.log("server is running");

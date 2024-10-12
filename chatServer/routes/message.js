@@ -5,7 +5,7 @@ import Message from './../models/Message.js';
 
 const router = express.Router();
 
-router.post('/send/:receiverId', async (req,res) => {
+router.post('/send/:receiverId',verifyUser, async (req,res) => {
     const { receiverId } = req.params;
     const  senderId  = req.user._id;
     const { content } = req.body;
