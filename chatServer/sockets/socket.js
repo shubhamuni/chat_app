@@ -2,11 +2,11 @@ import { Server } from 'socket.io';
 import http from 'http';
 import express from 'express';
 
-const appl = express();
+const app = express();
 
 const onlineUsers = {};
 
-const server = http.createServer(appl);
+const server = http.createServer(app);
 
 
 const io = new Server(server, {
@@ -26,4 +26,4 @@ io.on('connection', (socket) => {
     })
 })
 
-export { appl, server };
+export { app, server };

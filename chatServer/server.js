@@ -3,9 +3,7 @@ import cors from 'cors';
 import Connect from "./Connect.js";
 import AuthRouter from './routes/auth.js';
 import UserRouter from './routes/user.js';
-import {appl, server} from './sockets/socket.js'
-
-const app = express();
+import {app, server} from './sockets/socket.js'
 
 app.use(cors());
 
