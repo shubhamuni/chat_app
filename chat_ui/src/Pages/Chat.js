@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../Components/Sidebar";
 import Form from "../Components/Form";
 
@@ -8,12 +8,25 @@ const Chat = ({socket}) => {
   const [receiverId, setReceiverId] = useState();
   const userId = window.localStorage.getItem("userId")
   
+useEffect(() => {
+    socket.emit('join', userId)
+    
+  }, [socket])
+
+  useEffect(() => {
+    socket.on('newMessage', (message) => {
+      setChat(state => [...state, {sender: message.sender, content: message.content}])
+    })
+    
+  }, [socket])
+  
+
   return (
     <div className='flex items-center justify-center h-screen bg-gray-100'>
       <div
         className='bg-cover w-2/4 h-[calc(100vh-60px)] rounded-lg flex' style={{ backgroundImage: "url(./bg.jpg)" }}>
 
-        <Sidebar setChatInitiated={setChatInitiated} setChat={setChat} socket={socket} setReceiverId={setReceiverId}/>
+        <Sidebar setChatInitiated={setChatInitiated} setChat={setChat} setReceiverId={setReceiverId}/>
         <div className="w-3/4 bg-white flex flex-col bg-opacity-20 realative">
           {chatInitiated ? <div>
             <div className="overflow-y-auto mb-20">
