@@ -10,15 +10,20 @@ const Chat = ({socket}) => {
   
 useEffect(() => {
     socket.emit('join', userId)
-    
-  }, [socket])
+  }, [])
 
   useEffect(() => {
-    socket.on('newMessage', (message) => {
+
+    const handleNewMessages = (message) => {
       setChat(state => [...state, {sender: message.sender, content: message.content}])
-    })
+    }
+    socket.on('newMessage',handleNewMessages)
     
-  }, [socket])
+    // clean up function
+    return () => {
+      socket.off('newMessage', handleNewMessages)
+    }
+  }, [socket, receiverId])
   
 
   return (

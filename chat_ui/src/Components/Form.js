@@ -16,7 +16,8 @@ const Form = ({receiverId, setChat, chat}) => {
                 })
             console.log(response);
             
-            setChat([...chat, {content: message, sender: userId}])
+            setChat([...chat, { content: message, sender: userId }])
+            setMessage('')
         } catch (error) {
            console.log(error);
             
