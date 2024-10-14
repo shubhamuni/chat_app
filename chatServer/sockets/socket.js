@@ -8,8 +8,8 @@ const onlineUsers = {};
 
 const server = http.createServer(app);
 
-export const getReceiverSocketId = (receiverId) => {
-    onlineUsers[receiverId]
+const getReceiverSocketId = (receiverId) => {
+    return onlineUsers[receiverId];
 }
 const io = new Server(server, {
     cors: {
@@ -28,4 +28,4 @@ io.on('connection', (socket) => {
     })
 })
 
-export { app, server, io };
+export { app, server, io, getReceiverSocketId };

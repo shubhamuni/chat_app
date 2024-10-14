@@ -6,7 +6,9 @@ const Chat = ({socket}) => {
   const [chatInitiated, setChatInitiated] = useState(false);
   const [chat, setChat] = useState([]);
   const [receiverId, setReceiverId] = useState();
-  const userId = window.localStorage.getItem("userId")
+  const userId = window.localStorage.getItem("userId");
+
+  console.log(userId)
   
 useEffect(() => {
     socket.emit('join', userId)
