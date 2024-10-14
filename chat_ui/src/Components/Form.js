@@ -20,6 +20,7 @@ const Form = ({receiverId, setChat, chat}) => {
             setMessage('');
         } catch (error) {
            console.log(error);
+           
             
         }
     }

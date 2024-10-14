@@ -5,6 +5,9 @@ import io from 'socket.io-client';
 
 const socket = io.connect('http://localhost:9000');
 
+
+  // Make sure this matches the actual server address and port
+
 function App() {
   return (
     <Router>

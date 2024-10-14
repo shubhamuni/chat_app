@@ -15,22 +15,21 @@ const io = new Server(server, {
         methods: ['GET', 'POST']
     }
 });
-
+const getReceiverSocketId = (receiverId) => {
+    if (onlineUsers[receiverId]) {
+        return onlineUsers[receiverId];
+    } else {
+        console.log("Receiver is not online");
+        return null;
+    }
+}
 
 io.on('connection', (socket) => {
     console.log("user joined", socket.id);
     socket.on('join', (receiverId) => {
-        onlineUsers[receiverId] = socket.id
-        console.log("Receiver ID: ", receiverId, " Socket id: ", socket.id, "online users ", onlineUsers );
-        
-    })
-})
-const getReceiverSocketId = (receiverId) => {
-    if (onlineUsers.length > 0) {
-        return onlineUsers[receiverId];
-    } else {
-        console.log("no users");
-        
-    }   
-}
+        onlineUsers[receiverId] = socket.id;
+        console.log("Receiver ID: ", receiverId, " Socket id: ", socket.id, "online users", onlineUsers);
+    });
+});
+
 export { app, server, io, getReceiverSocketId };

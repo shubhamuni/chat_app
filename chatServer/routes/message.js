@@ -27,7 +27,7 @@ const router = express.Router();
     })
 
 try {
-    router.post('/send/:receiverId', verifyUser, async (req, res) => {
+    router.post('/send/:receiverId',verifyUser, async (req, res) => {
         const { receiverId } = req.params;
         const senderId = req.user._id;
         const { content } = req.body;
@@ -52,11 +52,14 @@ try {
         // console.log(newMessage);
         
 
-        const receiverSocketId = getReceiverSocketId(receiverId);
-        
-        if (receiverSocketId) {
-            io.to(receiverId).emit('newMessage', newMessage) 
-        }
+        setTimeout(() => {
+            const receiverSocketId = getReceiverSocketId(receiverId);
+            if (receiverSocketId) {
+                io.to(receiverSocketId).emit('newMessage', newMessage);
+            } else {
+                console.log('Receiver is not online');
+            }
+        }, 2000);  // Adjust the delay if necessary
         return res.json(newMessage);
     })
 } catch (error) {

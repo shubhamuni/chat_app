@@ -9,17 +9,21 @@ const Chat = ({socket}) => {
   const userId = window.localStorage.getItem("userId");
   
 useEffect(() => {
-  socket.emit('join', userId)
-  // eslint-disable-next-line
-  }, [])
+    if (userId) {
+        socket.emit('join', userId);
+    } else {
+        console.error("No user ID found");
+    }
+}, []);
 
-  const handleNewMessages = (message) => {
+
+  
+  useEffect(() => {
+    const handleNewMessages = (message) => {
     if (receiverId === message.sender) {
       setChat(state => [...state, {sender: message.sender, content: message.content}])
     }
      }
-  useEffect(() => {
-    
     socket.on('newMessage',handleNewMessages)
     
     // clean up function
