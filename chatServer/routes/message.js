@@ -59,7 +59,7 @@ try {
             } else {
                 console.log('Receiver is not online');
             }
-        }, 2000);  // Adjust the delay if necessary
+        }, 1000);  // Adjust the delay if necessary
         return res.json(newMessage);
     })
 } catch (error) {

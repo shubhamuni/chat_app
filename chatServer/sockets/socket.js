@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
     socket.on('join', (receiverId) => {
         onlineUsers[receiverId] = socket.id;
         console.log("Receiver ID: ", receiverId, " Socket id: ", socket.id, "online users", onlineUsers);
+        socket.emit('joinSuccess', { receiverId });
     });
 });
 

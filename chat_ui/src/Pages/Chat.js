@@ -14,7 +14,7 @@ useEffect(() => {
     } else {
         console.error("No user ID found");
     }
-}, []);
+}, [socket, userId]);
 
 
   
