@@ -29,7 +29,7 @@ const Home = () => {
         return; // Early exit if no token
       }
       try {
-        const response = await axios.get('http://chat-app-17cu.vercel.app'/chat/user/verify', {
+        const response = await axios.get('https://chat-app-17cu.vercel.app/chat/user/verify', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
