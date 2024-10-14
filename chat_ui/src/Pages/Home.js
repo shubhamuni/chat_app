@@ -11,6 +11,7 @@ const Home = () => {
   const [modelIsOpen, setModelIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
 
   const openSignUp = () => {
       setModelIsOpen(true);
