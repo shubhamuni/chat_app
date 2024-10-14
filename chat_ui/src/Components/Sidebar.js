@@ -1,74 +1,89 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({setChatInitiated, setChat, setReceiverId}) => {
-    const navigate = useNavigate();
-    const [users, setUsers] = useState([]);
+const Sidebar = ({ setChatInitiated, setChat, setReceiverId }) => {
+  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [searchField, setSearchField] = useState('');
+  const token = window.localStorage.getItem('chat-token');
+
+  const onSearchChange = (event) => {
+    setSearchField(event.target.value);
+  };
+
+  const filteredUsers = users.filter((user) =>
+    user.username.toLowerCase().includes(searchField.toLowerCase())
+  );
+
   const handleLogout = () => {
-    window.localStorage.removeItem("chat-token")
-    window.localStorage.removeItem("userId")
-    navigate('/')
-    }
-  
-    useEffect(() => {
-        const fetchUser = async () => {
-            const token = window.localStorage.getItem('chat-token');
-          try {
-              const users = await axios.get('http://localhost:9000/chat/users', {
-              headers: {
-                    'Authorization': `Bearer ${token}`
-              }
-            }
-                  
-              )
-              setUsers(users.data.users) 
-          } catch (error) {
-              navigate('/');
-              console.log(error);
-              
-          }
-        }
-        fetchUser();        
-    }, [navigate])
-    
-  const statChat = async (id) => {
-    const token = window.localStorage.getItem('chat-token');
-      try {
-          const response = await axios.get('http://localhost:9000/chat/message/read/' + id,
-              {
-            headers: {
-                  'Authorization': `Bearer ${token}`
-                  }
-              })
-          setChat(response.data)
-      } catch (error) {
-        if (error.response.data.message === "Not Found") {
-          setChat([]);
-        }
-      }
-  setReceiverId(id)
-  setChatInitiated(true);
-  }
-  return (
-      <div className='w-1/4 bg-black p-4 bg-opacity-80 relative'>
-          <input type="text" name="Search" placeholder='Search' className='w-full mb-4 p-2 border rounded'/>
-          {users.length > 0 ? 
-              (<div className='space-y-4' >
-                  {users.map(user => (
-                      <div key={user._id} onClick={()=> statChat(user._id)} className='flex items-center space-x-4 p2 hover:bg-gray-300 cursor-pointer '>
-                          <img src={`./../../../chatServer/Public/Images/${user.image}`} alt="username" className='w-10 h-10 rounded-full border'/>
-                          <span className='text-white font-bold'>{user.username}</span>
-                      </div>
-                  ))}
-              </div>) :
-              (<div>
-                <p className='text-white text-2xl'>No Users</p>  
-        </div>)
-      }
-      <button onClick={handleLogout} className='z-10 fixed bottom-9 right-30 left-100 rounded hover:bg-blue-700 bg-blue-500 text-white p-3 justify-center'>Logout</button>
-    </div>
-  )
-}
+    window.localStorage.removeItem("chat-token");
+    window.localStorage.removeItem("userId");
+    navigate('/');
+  };
 
-export default Sidebar
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:9000/chat/users', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setUsers(response.data.users);
+      } catch (error) {
+        navigate('/');
+        console.error(error);
+      }
+    };
+    fetchUsers();
+  }, [navigate, token]);
+
+  const statChat = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:9000/chat/message/read/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setChat(response.data);
+    } catch (error) {
+      if (error.response && error.response.data.message === "Not Found") {
+        setChat([]);
+      }
+    }
+    setReceiverId(id);
+    setChatInitiated(true);
+  };
+
+  return (
+    <div className='w-1/4 bg-gray-800 p-4 relative text-white flex flex-col h-full'>
+      <input
+        type="text"
+        name="Search"
+        onChange={onSearchChange}
+        placeholder='Search Users'
+        className='w-full mb-4 p-2 bg-gray-700 border border-gray-600 rounded'
+      />
+      {users.length > 0 ? (
+        <div className='flex-grow space-y-4 overflow-y-auto'>
+          {filteredUsers.map(user => (
+            <div key={user._id} onClick={() => statChat(user._id)} className='flex items-center space-x-4 p-2 hover:bg-gray-600 cursor-pointer rounded'>
+              <img src={`http://localhost:9000/Public/Images/${user.image}`} alt={user.username} className='w-10 h-10 rounded-full border' />
+              <span className='font-bold'>{user.username}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>
+          <p className='text-white text-2xl'>No Users</p>
+        </div>
+      )}
+      <button onClick={handleLogout} className='mt-auto bg-red-500 text-white p-2 rounded hover:bg-red-600'>
+        Logout
+      </button>
+    </div>
+  );
+};
+
+export default Sidebar;
