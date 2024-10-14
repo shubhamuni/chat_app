@@ -5,6 +5,12 @@ import { useNavigate } from 'react-router-dom'
 const Sidebar = ({setChatInitiated, setChat, setReceiverId}) => {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+  const handleLogout = () => {
+    window.localStorage.removeItem("chat-token")
+    window.localStorage.removeItem("userId")
+    navigate('/')
+    }
+  
     useEffect(() => {
         const fetchUser = async () => {
             const token = window.localStorage.getItem('chat-token');
@@ -35,8 +41,6 @@ const Sidebar = ({setChatInitiated, setChat, setReceiverId}) => {
                   'Authorization': `Bearer ${token}`
                   }
               })
-          console.log(response);
-          
           setChat(response.data)
       } catch (error) {
         if (error.response.data.message === "Not Found") {
@@ -47,7 +51,7 @@ const Sidebar = ({setChatInitiated, setChat, setReceiverId}) => {
   setChatInitiated(true);
   }
   return (
-      <div className='w-1/4 bg-black p-4 bg-opacity-70 realative'>
+      <div className='w-1/4 bg-black p-4 bg-opacity-80 relative'>
           <input type="text" name="Search" placeholder='Search' className='w-full mb-4 p-2 border rounded'/>
           {users.length > 0 ? 
               (<div className='space-y-4' >
@@ -60,9 +64,9 @@ const Sidebar = ({setChatInitiated, setChat, setReceiverId}) => {
               </div>) :
               (<div>
                 <p className='text-white text-2xl'>No Users</p>  
-              </div>)
-          }
-          <button className='fixed bottom-9 right-30 left-100 rounded hover:bg-blue-700 bg-blue-500 text-white p-3 justify-center'>Logout</button>
+        </div>)
+      }
+      <button onClick={handleLogout} className='z-10 fixed bottom-9 right-30 left-100 rounded hover:bg-blue-700 bg-blue-500 text-white p-3 justify-center'>Logout</button>
     </div>
   )
 }

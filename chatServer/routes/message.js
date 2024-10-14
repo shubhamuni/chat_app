@@ -49,10 +49,13 @@ try {
 
         });
         await newMessage.save();
+        // console.log(newMessage);
+        
 
         const receiverSocketId = getReceiverSocketId(receiverId);
+        
         if (receiverSocketId) {
-            io.to(receiverId).emit('newMessage', newMessage)
+            io.to(receiverId).emit('newMessage', newMessage) 
         }
         return res.json(newMessage);
     })
