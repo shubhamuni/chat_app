@@ -8,9 +8,7 @@ const onlineUsers = {};
 
 const server = http.createServer(app);
 
-const getReceiverSocketId = (receiverId) => {
-    return onlineUsers[receiverId];
-}
+
 const io = new Server(server, {
     cors: {
         origin: '*',
@@ -18,6 +16,9 @@ const io = new Server(server, {
     }
 });
 
+const getReceiverSocketId = (receiverId) => {
+    return onlineUsers[receiverId];
+}
 
 io.on('connection', (socket) => {
     console.log("user joined", socket.id);

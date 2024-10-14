@@ -11,7 +11,8 @@ const Chat = ({socket}) => {
   console.log(userId)
   
 useEffect(() => {
-    socket.emit('join', userId)
+  socket.emit('join', userId)
+  // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

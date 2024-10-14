@@ -47,8 +47,9 @@ try {
             content: content,
             createdAt: new Date()
 
-        })
+        });
         await newMessage.save();
+
         const receiverSocketId = getReceiverSocketId(receiverId);
         if (receiverSocketId) {
             io.to(receiverId).emit('newMessage', newMessage)

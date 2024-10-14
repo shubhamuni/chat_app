@@ -24,7 +24,7 @@ const Sidebar = ({setChatInitiated, setChat, setReceiverId}) => {
           }
         }
         fetchUser();        
-    }, [])
+    }, [navigate])
     
   const statChat = async (id) => {
     const token = window.localStorage.getItem('chat-token');
