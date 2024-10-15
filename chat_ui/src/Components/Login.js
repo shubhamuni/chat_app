@@ -11,7 +11,7 @@ const Login = ({openSignUp}) => {
         // eslint-disable-next-line no-restricted-globals
         e.preventDefault();
         try {
-            const response = await axios.post('https://chat-build.onrender.com/chat/user/login', {username, password});
+            const response = await axios.post('http://localhost:9000/chat/user/login', {username, password});
             console.log(response);
             if (response.data.msg === 'success') {
                 window.localStorage.setItem('chat-token', response.data.token);

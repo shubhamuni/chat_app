@@ -3,7 +3,7 @@ import Home from './Pages/Home';
 import Chat from './Pages/Chat';
 import io from 'socket.io-client';
 
-const socket = io.connect('https://chat-build.onrender.com');
+const socket = io.connect('http://localhost:9000');
 
 
   // Make sure this matches the actual server address and port

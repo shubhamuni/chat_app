@@ -12,4 +12,4 @@ const Model = ({modelIsOpen, setModelIsOpen, children}) => {
   )
 }
 
-export default Model
+export default Model;

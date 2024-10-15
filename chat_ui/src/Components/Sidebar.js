@@ -25,7 +25,7 @@ const Sidebar = ({ setChatInitiated, setChat, setReceiverId }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://chat-build.onrender.com/chat/users', {
+        const response = await axios.get('http://localhost:9000/chat/users', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -41,7 +41,7 @@ const Sidebar = ({ setChatInitiated, setChat, setReceiverId }) => {
 
   const statChat = async (id) => {
     try {
-      const response = await axios.get(`https://chat-build.onrender.com/chat/message/read/${id}`, {
+      const response = await axios.get(`http://localhost:9000/chat/message/read/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
