@@ -9,7 +9,7 @@ const Form = ({ receiverId, setChat, chat }) => {
     e.preventDefault();
     const token = window.localStorage.getItem('chat-token');
     try {
-      await axios.post(`http://localhost:9000/chat/message/send/${receiverId}`, { content: message }, {
+      await axios.post(`https://chat-build.onrender.com/chat/message/send/${receiverId}`, { content: message }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
