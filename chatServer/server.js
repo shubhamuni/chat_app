@@ -3,11 +3,11 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url'; // Import fileURLToPath to get __dirname
 import { dirname } from 'path'; // Import dirname
-import Connect from "Connect.js"; // Your MongoDB connection file
-import AuthRouter from 'routes/auth.js';
-import UserRouter from 'routes/user.js';
-import { app, server } from 'sockets/socket.js';
-import MessageRouter from 'routes/message.js';
+import Connect from "./Connect.js"; // Your MongoDB connection file
+import AuthRouter from './routes/auth.js';
+import UserRouter from './routes/user.js';
+import { app, server } from './sockets/socket.js';
+import MessageRouter from './routes/message.js';
 
 // Set up __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
